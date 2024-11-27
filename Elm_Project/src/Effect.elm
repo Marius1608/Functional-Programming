@@ -1,5 +1,4 @@
 module Effect exposing (..)
-
 import Http
 import Json.Decode
 import Model exposing (Msg(..))
@@ -8,6 +7,7 @@ import Model.PostIds exposing (HackerNewsItem, PostIds, itemName)
 import Task
 import Time
 import Url.Builder as UrlBuilder
+
 
 
 type Effect
@@ -25,6 +25,7 @@ type Effect
         , onResult : Result Http.Error Post -> Msg
         , decoder : Json.Decode.Decoder Post
         }
+
 
 
 performEffect : Effect -> Cmd Msg

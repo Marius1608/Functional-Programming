@@ -10,12 +10,15 @@ module Model exposing
     , initModel
     )
 
+
+
 import Cursor exposing (Cursor)
 import Http
 import Model.Post exposing (Post)
 import Model.PostIds exposing (PostIds)
 import Model.PostsConfig as PostsConfig exposing (PostsConfig, defaultConfig)
 import Time
+
 
 
 type Msg
@@ -25,16 +28,20 @@ type Msg
     | ConfigChanged PostsConfig.Change
 
 
+
 type alias LoadingState =
     { config : PostsConfig, time : Time.Posix }
+
 
 
 type alias LoadingPostsState =
     { config : PostsConfig, time : Time.Posix, postIds : PostIds, currentId : Int, posts : List Post }
 
 
+
 type alias LoadedPostsState =
     { config : PostsConfig, time : Time.Posix, posts : List Post }
+
 
 
 type AppState
@@ -46,10 +53,12 @@ type AppState
     | OtherError String
 
 
+
 type alias Model =
     { config : Config
     , state : AppState
     }
+
 
 
 type Mode
@@ -57,10 +66,12 @@ type Mode
     | Prod
 
 
+
 type alias Config =
     { apiUrl : String
     , mode : Mode
     }
+
 
 
 initModel : Config -> Model

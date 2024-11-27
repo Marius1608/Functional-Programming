@@ -68,6 +68,7 @@ advance (PostIds cursor) =
         |> Maybe.map (\newCursor -> ( Cursor.current newCursor, PostIds newCursor ))
 
 
+
 {-| Returns the first post id
 
     import Cursor

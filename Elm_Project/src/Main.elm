@@ -1,5 +1,4 @@
 module Main exposing (devFlags, init, main, prodFlags, reactorMain, update, view)
-
 import Browser
 import Dict exposing (update)
 import Effect exposing (Effect, performEffect)
@@ -75,6 +74,7 @@ getItems apiUrl item =
 getTopPostIds : String -> Effect
 getTopPostIds apiUrl =
     getItems apiUrl Top
+
 
 
 getPost : String -> Int -> Effect

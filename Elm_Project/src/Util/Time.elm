@@ -155,10 +155,8 @@ durationBetween t1 t2 =
         let
             diffMs = ms2 - ms1
             diffSeconds = diffMs // 1000
-            
             days = diffSeconds // (24 * 60 * 60)
             remainingSeconds1 = remainderBy (24 * 60 * 60) diffSeconds
-            
             hours = remainingSeconds1 // (60 * 60)
             remainingSeconds2 = remainderBy (60 * 60) remainingSeconds1
             

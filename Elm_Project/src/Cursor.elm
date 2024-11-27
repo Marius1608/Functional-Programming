@@ -1,5 +1,7 @@
 module Cursor exposing (Cursor, back, current, forward, fromList, length, nonEmpty, toList, withSelectedElement)
 
+
+
 {-| Data structure to efficiently navigate a list forward or backward.
 
 It stores a non-empty list as two lists and one element that is currently "selected".

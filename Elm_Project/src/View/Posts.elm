@@ -69,9 +69,9 @@ postsConfigView config =
                     Nothing -> ConfigChanged (ChangePostsToShow config.postsToShow)
               )
             ]
-            [ Html.option [ Html.Attributes.selected (config.postsToShow == 10) ] [ text "10" ]
-            , Html.option [ Html.Attributes.selected (config.postsToShow == 25) ] [ text "25" ]
-            , Html.option [ Html.Attributes.selected (config.postsToShow == 50) ] [ text "50" ]
+            [ Html.option [ Html.Attributes.value "10", Html.Attributes.selected (config.postsToShow == 10) ] [ text "10" ]
+            , Html.option [ Html.Attributes.value "25", Html.Attributes.selected (config.postsToShow == 25) ] [ text "25" ]
+            , Html.option [ Html.Attributes.value "50", Html.Attributes.selected (config.postsToShow == 50) ] [ text "50" ]
             ]
         , Html.select
             [ Html.Attributes.id "select-sort-by"
@@ -83,7 +83,9 @@ postsConfigView config =
             ]
             (List.map (\sort -> 
                 Html.option 
-                    [ Html.Attributes.selected (sort == config.sortBy) ] 
+                    [ Html.Attributes.value (sortToString sort)
+                    , Html.Attributes.selected (sort == config.sortBy) 
+                    ] 
                     [ text (sortToString sort) ]
             ) sortOptions)
         , Html.label []

@@ -21,23 +21,23 @@ main : Test.Runner.Node.TestProgram
 main =
     Test.Runner.Node.run
         { runs = 100
-        , report = JsonReport
+        , report = ConsoleReport Monochrome
         , seed = 376158560164992
         , processes = 8
         , globs =
             []
         , paths =
-            [ "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\CursorTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\ModelPostIdsTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\ModelPostsConfigTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\UtilTimeTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\MainTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostsConfigTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostsViewTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostTests.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\SimulatedEffect.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\TestData.elm"
-            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\TestUtils.elm"
+            [ "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\CursorTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\ModelPostIdsTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\ModelPostsConfigTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\UtilTimeTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\MainTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostsConfigTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostsViewTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostTests.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\SimulatedEffect.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\TestData.elm"
+            , "C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\TestUtils.elm"
             ]
         }
         [ ( "ExampleTests.CursorTests"

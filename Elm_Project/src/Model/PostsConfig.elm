@@ -4,6 +4,7 @@ import Model.Post exposing (Post)
 import Time
 
 
+
 type SortBy
     = Score
     | Title
@@ -59,13 +60,16 @@ sortToCompareFn : SortBy -> (Post -> Post -> Order)
 sortToCompareFn sort =
     case sort of
         Score ->
-            \postA postB -> compare postB.score postA.score
+            \postA postB -> 
+                compare postB.score postA.score 
 
         Title ->
-            \postA postB -> compare postA.title postB.title
+            \postA postB ->
+                compare ( String.toLower postA.title ) ( String.toLower postB.title) 
 
         Posted ->
-            \postA postB -> compare (Time.posixToMillis postB.time) (Time.posixToMillis postA.time)
+            \postA postB ->
+                compare (Time.posixToMillis postB.time) (Time.posixToMillis postA.time)
 
         None ->
             \_ _ -> EQ
@@ -130,12 +134,21 @@ filterPosts : PostsConfig -> List Post -> List Post
 filterPosts config posts =
     posts
         |> (if not config.showTextOnly then
-                List.filter (\p -> p.url /= Nothing)
+                List.filter (.url >> (/=) Nothing)
             else
-                identity)
+                identity
+            )
+
         |> (if not config.showJobs then
-                List.filter (\p -> p.type_ /= "job")
+                List.filter (.type_ >> (/=) "job")
             else
-                identity)
-        |> List.sortWith (sortToCompareFn config.sortBy)
+                identity
+            
+            )
+            
         |> List.take config.postsToShow
+
+        |> (case config.sortBy of
+                None -> identity
+                _ -> List.sortWith (sortToCompareFn config.sortBy)
+            )

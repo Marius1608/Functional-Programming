@@ -4355,7 +4355,10 @@ var $elm$core$Set$toList = function (_v0) {
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
-var $author$project$Test$Reporter$Reporter$JsonReport = {$: 'JsonReport'};
+var $author$project$Test$Reporter$Reporter$ConsoleReport = function (a) {
+	return {$: 'ConsoleReport', a: a};
+};
+var $author$project$Console$Text$Monochrome = {$: 'Monochrome'};
 var $elm$core$Debug$todo = _Debug_todo;
 var $author$project$Test$Runner$Node$checkHelperReplaceMe___ = function (_v0) {
 	return _Debug_todo(
@@ -9550,6 +9553,7 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
+var $elm$core$String$toLower = _String_toLower;
 var $author$project$Model$PostsConfig$sortToCompareFn = function (sort) {
 	switch (sort.$) {
 		case 'Score':
@@ -9560,7 +9564,10 @@ var $author$project$Model$PostsConfig$sortToCompareFn = function (sort) {
 		case 'Title':
 			return F2(
 				function (postA, postB) {
-					return A2($elm$core$Basics$compare, postA.title, postB.title);
+					return A2(
+						$elm$core$Basics$compare,
+						$elm$core$String$toLower(postA.title),
+						$elm$core$String$toLower(postB.title));
 				});
 		case 'Posted':
 			return F2(
@@ -9580,20 +9587,32 @@ var $author$project$Model$PostsConfig$sortToCompareFn = function (sort) {
 var $elm$core$List$sortWith = _List_sortWith;
 var $author$project$Model$PostsConfig$filterPosts = F2(
 	function (config, posts) {
-		return A2(
-			$elm$core$List$take,
-			config.postsToShow,
+		return function () {
+			var _v0 = config.sortBy;
+			if (_v0.$ === 'None') {
+				return $elm$core$Basics$identity;
+			} else {
+				return $elm$core$List$sortWith(
+					$author$project$Model$PostsConfig$sortToCompareFn(config.sortBy));
+			}
+		}()(
 			A2(
-				$elm$core$List$sortWith,
-				$author$project$Model$PostsConfig$sortToCompareFn(config.sortBy),
+				$elm$core$List$take,
+				config.postsToShow,
 				((!config.showJobs) ? $elm$core$List$filter(
-					function (p) {
-						return p.type_ !== 'job';
-					}) : $elm$core$Basics$identity)(
+					A2(
+						$elm$core$Basics$composeR,
+						function ($) {
+							return $.type_;
+						},
+						$elm$core$Basics$neq('job'))) : $elm$core$Basics$identity)(
 					((!config.showTextOnly) ? $elm$core$List$filter(
-						function (p) {
-							return !_Utils_eq(p.url, $elm$core$Maybe$Nothing);
-						}) : $elm$core$Basics$identity)(posts))));
+						A2(
+							$elm$core$Basics$composeR,
+							function ($) {
+								return $.url;
+							},
+							$elm$core$Basics$neq($elm$core$Maybe$Nothing))) : $elm$core$Basics$identity)(posts))));
 	});
 var $elm$core$List$maybeCons = F3(
 	function (f, mx, xs) {
@@ -10156,6 +10175,7 @@ var $author$project$Model$PostsConfig$sortToString = function (sort) {
 	}
 };
 var $elm$html$Html$Attributes$type_ = $elm$html$Html$Attributes$stringProperty('type');
+var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$View$Posts$postsConfigView = function (config) {
 	return A2(
 		$elm$html$Html$div,
@@ -10186,6 +10206,7 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 						$elm$html$Html$option,
 						_List_fromArray(
 							[
+								$elm$html$Html$Attributes$value('10'),
 								$elm$html$Html$Attributes$selected(config.postsToShow === 10)
 							]),
 						_List_fromArray(
@@ -10196,6 +10217,7 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 						$elm$html$Html$option,
 						_List_fromArray(
 							[
+								$elm$html$Html$Attributes$value('25'),
 								$elm$html$Html$Attributes$selected(config.postsToShow === 25)
 							]),
 						_List_fromArray(
@@ -10206,6 +10228,7 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 						$elm$html$Html$option,
 						_List_fromArray(
 							[
+								$elm$html$Html$Attributes$value('50'),
 								$elm$html$Html$Attributes$selected(config.postsToShow === 50)
 							]),
 						_List_fromArray(
@@ -10238,6 +10261,8 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 							$elm$html$Html$option,
 							_List_fromArray(
 								[
+									$elm$html$Html$Attributes$value(
+									$author$project$Model$PostsConfig$sortToString(sort)),
 									$elm$html$Html$Attributes$selected(
 									_Utils_eq(sort, config.sortBy))
 								]),
@@ -14217,7 +14242,6 @@ var $elm_explorations$test$Test$Html$Internal$Inert$parseAttribute = function (a
 			'Error internally processing Attribute for testing - please report this error message as a bug: ' + $elm$json$Json$Decode$errorToString(jsonError));
 	}
 };
-var $elm$core$String$toLower = _String_toLower;
 var $elm$core$Result$withDefault = F2(
 	function (def, result) {
 		if (result.$ === 'Ok') {
@@ -22620,7 +22644,6 @@ var $elm_explorations$test$Test$Html$Event$input = function (value) {
 				])));
 };
 var $elm_explorations$test$Test$Html$Selector$selected = $elm_explorations$test$Test$Html$Selector$Internal$namedBoolAttr('selected');
-var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$MainTests$suite = A2(
 	$elm_explorations$test$Test$describe,
 	'module Main',
@@ -25971,9 +25994,9 @@ var $author$project$Test$Generated$Main$main = A2(
 	{
 		globs: _List_Nil,
 		paths: _List_fromArray(
-			['C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\CursorTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\ModelPostIdsTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\ModelPostsConfigTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\ExampleTests\\UtilTimeTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\MainTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostsConfigTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostsViewTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\PostTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\SimulatedEffect.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\TestData.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Proiect_Elm\\tests\\TestUtils.elm']),
+			['C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\CursorTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\ModelPostIdsTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\ModelPostsConfigTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\ExampleTests\\UtilTimeTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\MainTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostsConfigTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostsViewTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\PostTests.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\SimulatedEffect.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\TestData.elm', 'C:\\Users\\pante\\Desktop\\An3_sem1\\PF\\Functional-Programming\\Elm_Project\\tests\\TestUtils.elm']),
 		processes: 8,
-		report: $author$project$Test$Reporter$Reporter$JsonReport,
+		report: $author$project$Test$Reporter$Reporter$ConsoleReport($author$project$Console$Text$Monochrome),
 		runs: 100,
 		seed: 376158560164992
 	},
@@ -26056,7 +26079,7 @@ var $author$project$Test$Generated$Main$main = A2(
 _Platform_export({'Test':{'Generated':{'Main':{'init':$author$project$Test$Generated$Main$main($elm$json$Json$Decode$int)(0)}}}});}(this));
 return this.Elm;
 })({});
-var pipeFilename = "\\\\.\\pipe\\elm_test-16320-1";
+var pipeFilename = "\\\\.\\pipe\\elm_test-11188-1";
 var net = require('net'),
   client = net.createConnection(pipeFilename);
 
